@@ -1,0 +1,26 @@
+name: React CI/CD
+
+on:
+  push:
+    branches:
+      - main   # 👈 deploy only when you push to main branch
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18   # ✅ Works for React 18.2.0
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build project
+        run: npm run build
